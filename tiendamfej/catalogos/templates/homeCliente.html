@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Home Clientes{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Clientes </h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lista de clientes
+                <a href="{% url 'crearCliente' %}" class="btn btn-primary float-right">Agregar Cliente</a>
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in clientes %}
+                        <tr style="text-align: center;">
+                            <td>{{ cliente.nombre }}</td>
+                            <td>{{ cliente.apellidos }}</td>
+                            <td>{{ cliente.telefono }}</td>
+                            <td>
+                                <a href="{% url 'verCliente' cliente.id %}" class="btn btn-info btn-sm">Ver</a> 
+                                <a href="{% url 'actualizarCliente' cliente.id %}" class="btn btn-info btn-sm">Actualizar</a> 
+                                <a href="{% url 'borrarCliente' cliente.id %}" class="btn btn-info btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
