@@ -1,0 +1,37 @@
+<style>
+    .btn-group {
+        display: flex;         
+        gap: 10px;          
+        margin-top: 15px;      
+    }
+</style>
+
+{% extends "base.html" %}
+
+{% block title %}Agregar Producto{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Agregar Producto</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="btn-group">
+            <button type="submit" class="btn btn-primary">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Guardar registro</span>
+            </button>
+
+            <a href="{% url 'homeProducto' %}" class="btn btn-secondary">
+                <span class="icon text-white-50">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="text">Cancelar y volver</span>
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

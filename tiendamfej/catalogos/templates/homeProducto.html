@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Home productos{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Productos </h1>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lista de productos
+                <a href="{% url 'crearProducto' %}" class="btn btn-primary float-right">Agregar Producto</a>
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>Producto</th>
+                            <th>Categoria</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                        <tr style="text-align: center;">
+                            <td>{{ producto.producto }}</td>
+                            <td>{{ producto.categoria }}</td>
+                            <td>{{ producto.precio }}</td>
+                            <td>
+                                <a href="{% url 'verProducto' producto.id %}" class="btn btn-info btn-sm">Ver</a> 
+                                <a href="{% url 'actualizarProducto' producto.id %}" class="btn btn-info btn-sm">Actualizar</a> 
+                                <a href="{% url 'borrarProducto' producto.id %}" class="btn btn-info btn-sm">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

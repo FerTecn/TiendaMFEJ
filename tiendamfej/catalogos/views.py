@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Cliente
-from .forms import clienteForm
+from .models import Cliente, Producto
+from .forms import clienteForm, productoForm
 
 # Create your views here.
+
+#CLIENTES
 def homeCliente(request):
     clientes = Cliente.objects.all()
     return render(request, 'homeCliente.html', {'clientes': clientes})
@@ -40,3 +42,42 @@ def crearCliente(request):
     return render(request, 'crearCliente.html', {'form': form})
 
 
+#PRODUCTOS
+def homeProducto(request):
+    productos = Producto.objects.all()
+    return render(request, 'homeProducto.html', {'productos': productos})
+
+# Ver detalles de un producto
+def verProducto(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    return render(request, 'verProducto.html', {'producto': producto})
+
+# Crear un nuevo producto
+def crearProducto(request):
+    if request.method == 'POST':
+        form = productoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('homeProducto')
+    else:
+        form = productoForm()
+    return render(request, 'crearProducto.html', {'form': form})
+
+def actualizarProducto(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    if request.method == 'POST':
+        form = productoForm(request.POST, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('homeProducto')
+    else:
+        form = productoForm(instance=producto)
+    return render(request, 'actualizarProducto.html', {'form': form})
+
+# Borrar un producto
+def borrarProducto(request, id):
+    producto = get_object_or_404(Producto, id=id)
+    if request.method == 'POST':
+        producto.delete()
+        return redirect('homeProducto')
+    return render(request, 'borrarProducto.html', {'producto': producto})

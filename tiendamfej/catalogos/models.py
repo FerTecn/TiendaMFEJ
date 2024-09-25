@@ -11,3 +11,12 @@ class Cliente(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellidos}"
+    
+class Producto(models.Model):
+    producto = models.CharField(max_length=100)
+    categoria = models.CharField(max_length=100)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    descripcion = models.TextField()
+
+    def __str__(self):
+        return self.producto
